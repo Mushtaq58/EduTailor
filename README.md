@@ -1,7 +1,7 @@
 # EduTailor - AI-Powered Adaptive E-Learning Platform
 
 **Final Year Project (FYP)** by Mushtaq Ubaid & Saman Sajid  
-**Supervisor:** Mr. Osama Subhani  
+**Supervisor:** Mr. Mohsin Ahmed  
 **Institution:** COMSATS University Islamabad  
 **Program:** BS Data Science
 
