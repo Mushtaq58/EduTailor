@@ -1,0 +1,14 @@
+# Core dependencies
+sentence-transformers==2.2.2
+faiss-cpu==1.7.4
+PyMuPDF==1.23.8
+requests==2.31.0
+
+# ML/AI libraries
+torch==2.1.0
+transformers==4.35.0
+numpy==1.24.3
+
+# Optional (for future modules)
+# googletrans==4.0.0rc1
+# gtts==2.4.0
