@@ -1,6 +1,6 @@
 # EduTailor 🎓
 
-> An AI-powered adaptive e-learning platform for O-Level Chemistry students in Pakistan
+> An AI-powered adaptive e-learning platform for O-Level/Matric students in Pakistan
 
 ![EduTailor Banner](frontend/src/assets/hero.png)
 
@@ -8,7 +8,7 @@
 
 ## 📌 Overview
 
-EduTailor is a Final Year Project (FYP) developed at **COMSATS University Islamabad** that delivers personalized, multimodal chemistry education tailored for Pakistani O-Level students. The platform uses artificial intelligence to adapt content delivery based on each student's learning style — providing the same topic in English text, Urdu translation, audio narration, visual animations, and AI-generated lecture slides.
+EduTailor is a Final Year Project (FYP) developed at **COMSATS University Islamabad** that delivers personalized, multimodal chemistry education tailored for Pakistani O-Level/Matric students. The platform uses artificial intelligence to adapt content delivery based on each student's learning style — providing the same topic in English text, Urdu translation, audio narration, visual animations, and AI-generated lecture slides.
 
 | Detail | Info |
 |--------|------|
