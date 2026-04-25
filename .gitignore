@@ -1,0 +1,44 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment files (NEVER commit real keys)
+.env
+backend/.env
+
+# Media files
+backend/media/
+media/
+backend/backend/media/
+
+# Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+
+# Manim temp files
+manim_scripts/
+manim_tex/
+
+# Data and binary files (RAG index)
+*.pkl
+*.bin
+backend/data/
+backend/backend/data/
+data/
+
+# Log and temp files
+*.log
+*.aux
+*.dvi
+*.tex
+
+# Duplicate nested backend folder
+backend/backend/
+
+# OS
+.DS_Store
+Thumbs.db
