@@ -407,7 +407,7 @@ def get_lecture_slides(topic_id):
     for row in rows:
         audio_url = None
         if row['audio_ur_path']:
-            audio_url = f"http://localhost:5000/api/{row['audio_ur_path']}"
+            audio_url = f"/api/{row['audio_ur_path']}"
 
         slides.append({
             'slide_number': row['slide_number'],
