@@ -10,7 +10,7 @@ import { useAuth } from '../../context/AuthContext'
 import api from '../../api/axios'
 import TopicQA from '../../components/TopicQA'
 
-const BACKEND_URL = 'http://localhost:5000'
+const BACKEND_URL = ''
 
 function calcXP(completed, inProgress) {
   return completed * 100 + inProgress * 25

@@ -5,7 +5,7 @@ import { ArrowLeft, ChevronRight, FlaskConical, MessageCircle, LogOut, UserCircl
 import { useAuth } from '../../context/AuthContext'
 import api from '../../api/axios'
 
-const BACKEND_URL = 'http://localhost:5000'
+const BACKEND_URL = ''
 
 export default function ChapterSelection() {
   const { subjectId } = useParams()
