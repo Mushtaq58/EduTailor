@@ -258,9 +258,9 @@ def rag_status():
         return err
 
     try:
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        metadata_path = os.path.join(base_dir, 'backend', 'data', 'metadata.json')
-        faiss_path = os.path.join(base_dir, 'backend', 'data', 'faiss_index.bin')
+        base_dir = os.path.dirname(os.path.abspath(__file__)).replace('routes', '')
+        metadata_path = os.path.join(base_dir, 'data', 'metadata.json')
+        faiss_path = os.path.join(base_dir, 'data', 'faiss_index.bin')
 
         chunk_count = None
         last_rebuilt = None
@@ -294,12 +294,12 @@ def rebuild_rag():
         return err
 
     try:
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        base_dir = os.path.dirname(os.path.abspath(__file__)).replace('routes', '')
 
         # Try root-level first, then backend/scripts/
-        script_path = os.path.join(base_dir, 'build_rag_index.py')
+        script_path = os.path.join(base_dir, 'scripts', 'build_rag_index.py')
         if not os.path.exists(script_path):
-            script_path = os.path.join(base_dir, 'backend', 'scripts', 'build_rag_index.py')
+            script_path = os.path.join(base_dir, 'scripts', 'build_rag_index.py')
 
         if not os.path.exists(script_path):
             return jsonify({'error': 'build_rag_index.py not found'}), 500
@@ -313,7 +313,7 @@ def rebuild_rag():
         )
 
         if result.returncode == 0:
-            metadata_path = os.path.join(base_dir, 'backend', 'data', 'metadata.json')
+            metadata_path = os.path.join(base_dir, 'data', 'metadata.json')
             chunk_count = None
             if os.path.exists(metadata_path):
                 with open(metadata_path, 'r', encoding='utf-8') as f:
