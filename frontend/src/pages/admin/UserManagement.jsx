@@ -109,7 +109,7 @@ export default function UserManagement() {
   }
 
   const formatDate = (iso) => {
-    if (!iso) return 'â€”'
+    if (!iso) return '—'
     return new Date(iso).toLocaleDateString('en-PK', { day: 'numeric', month: 'short', year: 'numeric' })
   }
 
@@ -118,27 +118,27 @@ export default function UserManagement() {
       {/* Toast */}
       {toast && (
         <div style={{ ...styles.toast, background: toast.type === 'error' ? '#ef444422' : '#10b98122', borderColor: toast.type === 'error' ? '#ef4444' : '#10b981', color: toast.type === 'error' ? '#fca5a5' : '#6ee7b7' }}>
-          {toast.type === 'error' ? 'âœ•' : 'âœ“'} {toast.msg}
+          {toast.type === 'error' ? '✕' : '✓'} {toast.msg}
         </div>
       )}
 
       {/* Header */}
       <div style={styles.header}>
         <div style={styles.headerLeft}>
-          <div style={styles.logo}><span style={{ fontSize: 22 }}>ðŸŽ“</span></div>
+          <div style={styles.logo}><span style={{ fontSize: 22 }}>🎓</span></div>
           <div>
             <div style={styles.logoText}>EduTailor</div>
             <div style={styles.logoSub}>Admin Portal</div>
           </div>
         </div>
-        <button style={styles.logoutBtn} onClick={() => navigate('/auth')}>â† Back to Dashboard</button>
+        <button style={styles.logoutBtn} onClick={() => navigate('/auth')}>← Back to Dashboard</button>
       </div>
 
       <div style={styles.content}>
         {/* Page title */}
         <div style={styles.titleRow}>
           <div>
-            <div style={styles.breadcrumb} onClick={() => navigate('/admin/dashboard')}>â† Dashboard</div>
+            <div style={styles.breadcrumb} onClick={() => navigate('/admin/dashboard')}>← Dashboard</div>
             <h1 style={styles.title}>User Management</h1>
           </div>
           <button style={styles.createBtn} onClick={() => setShowCreateModal(true)}>
@@ -197,7 +197,7 @@ export default function UserManagement() {
                 <h2 style={styles.sectionTitle}>
                   Students <span style={styles.badge}>{students.length}</span>
                 </h2>
-                <span style={{ color: '#64748b', fontSize: 14 }}>{showStudents ? 'â–² Collapse' : 'â–¼ Expand'}</span>
+                <span style={{ color: '#64748b', fontSize: 14 }}>{showStudents ? '▲ Collapse' : '▼ Expand'}</span>
               </div>
               {showStudents && (
                 <div style={styles.table}>
@@ -246,7 +246,7 @@ export default function UserManagement() {
           <div style={styles.modal} onClick={e => e.stopPropagation()}>
             <div style={styles.modalHeader}>
               <h3 style={styles.modalTitle}>Create Teacher Account</h3>
-              <button style={styles.closeBtn} onClick={() => setShowCreateModal(false)}>âœ•</button>
+              <button style={styles.closeBtn} onClick={() => setShowCreateModal(false)}>✕</button>
             </div>
 
             {formError && <div style={styles.formError}>{formError}</div>}

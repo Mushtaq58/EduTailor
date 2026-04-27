@@ -174,7 +174,7 @@ export default function ChapterSelection() {
                 <div className="flex items-center gap-4 flex-shrink-0">
                   <div className="text-right hidden sm:block">
                     <p className="text-sm font-semibold text-white">
-                      {chapter.topic_count || 'â€”'}
+                      {chapter.topic_count || '—'}
                     </p>
                     <p className="text-slate-600 text-xs">Topics</p>
                   </div>

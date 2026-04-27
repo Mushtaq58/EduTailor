@@ -541,7 +541,7 @@ export default function Dashboard() {
           </div>
 
           <div className="space-y-4">
-            {/* â”€â”€ AI Study Assistant â€” chapter-scoped Q&A â”€â”€ */}
+            {/* ── AI Study Assistant — chapter-scoped Q&A ── */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

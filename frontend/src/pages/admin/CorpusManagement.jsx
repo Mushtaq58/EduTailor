@@ -66,17 +66,17 @@ export default function CorpusManagement() {
       {/* Header */}
       <div style={styles.header}>
         <div style={styles.headerLeft}>
-          <div style={styles.logo}><span style={{ fontSize: 22 }}>ðŸŽ“</span></div>
+          <div style={styles.logo}><span style={{ fontSize: 22 }}>🎓</span></div>
           <div>
             <div style={styles.logoText}>EduTailor</div>
             <div style={styles.logoSub}>Admin Portal</div>
           </div>
         </div>
-        <button style={styles.backBtn} onClick={() => navigate('/admin/dashboard')}>â† Back to Dashboard</button>
+        <button style={styles.backBtn} onClick={() => navigate('/admin/dashboard')}>← Back to Dashboard</button>
       </div>
 
       <div style={styles.content}>
-        <div style={styles.breadcrumb} onClick={() => navigate('/admin/dashboard')}>â† Dashboard</div>
+        <div style={styles.breadcrumb} onClick={() => navigate('/admin/dashboard')}>← Dashboard</div>
         <h1 style={styles.title}>Corpus Management</h1>
 
         {/* RAG Status Card */}
@@ -104,7 +104,7 @@ export default function CorpusManagement() {
               <div style={styles.statusItem}>
                 <div style={styles.statusLabel}>Total Chunks</div>
                 <div style={{ ...styles.statusValue, color: '#06b6d4', fontWeight: 700, fontSize: 22 }}>
-                  {status.chunk_count ?? 'â€”'}
+                  {status.chunk_count ?? '—'}
                 </div>
               </div>
               <div style={styles.statusItem}>
@@ -117,7 +117,7 @@ export default function CorpusManagement() {
                 <div style={styles.statusLabel}>FAISS Index</div>
                 <div style={styles.statusValue}>
                   <span style={{ color: status.faiss_exists ? '#6ee7b7' : '#fca5a5' }}>
-                    {status.faiss_exists ? 'âœ“ Present' : 'âœ• Missing'}
+                    {status.faiss_exists ? '✓ Present' : '✕ Missing'}
                   </span>
                 </div>
               </div>
@@ -127,10 +127,10 @@ export default function CorpusManagement() {
 
         {/* Rebuild Section */}
         <div style={styles.rebuildCard}>
-          <div style={styles.rebuildTitle}>ðŸ”„ Rebuild RAG Index</div>
+          <div style={styles.rebuildTitle}>🔄 Rebuild RAG Index</div>
           <p style={styles.rebuildDesc}>
             This process reads all topic paragraphs from the database, generates embeddings,
-            and rebuilds the FAISS vector index used for Q&A search. Takes approximately 30â€“60 seconds.
+            and rebuilds the FAISS vector index used for Q&A search. Takes approximately 30–60 seconds.
           </p>
 
           <div style={styles.whenTitle}>When to rebuild:</div>
@@ -146,7 +146,7 @@ export default function CorpusManagement() {
 
           {rebuildResult && (
             <div style={styles.successBox}>
-              âœ“ {rebuildResult.message} â€” {rebuildResult.chunk_count} chunks indexed at {formatDate(rebuildResult.rebuilt_at)}
+              ✓ {rebuildResult.message} — {rebuildResult.chunk_count} chunks indexed at {formatDate(rebuildResult.rebuilt_at)}
             </div>
           )}
 
@@ -157,10 +157,10 @@ export default function CorpusManagement() {
           >
             {rebuilding ? (
               <>
-                <span style={styles.spinner}>âŸ³</span> Rebuilding... please wait
+                <span style={styles.spinner}>⟳</span> Rebuilding... please wait
               </>
             ) : (
-              'ðŸ”„ Rebuild RAG Index'
+              '🔄 Rebuild RAG Index'
             )}
           </button>
 
