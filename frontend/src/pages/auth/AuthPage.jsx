@@ -354,51 +354,55 @@ export default function AuthPage() {
   const isLogin = mode === 'login'
 
   return (
-    <div className="min-h-screen bg-slate-950 flex overflow-hidden">
-      <motion.div
-        className="hidden lg:block w-[45%] relative"
-        layout
-        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-      >
-        <AnimatePresence mode="wait">
-          {isLogin ? (
-            <motion.div key="deco-left" className="absolute inset-0" initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
-              <DecorativePanel align="left" />
-            </motion.div>
-          ) : (
-            <motion.div key="form-left" className="absolute inset-0 bg-slate-950 flex items-center justify-center p-8" initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
-              <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, rgba(6,182,212,0.8) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-              <div className="relative z-10 w-full max-w-sm"><RegisterForm onSwitch={() => setMode('login')} /></div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-
-      <AnimatePresence mode="wait">
+    <>
+      {/* ── Desktop (lg+) ── */}
+      <div className="hidden lg:flex min-h-screen bg-slate-950 overflow-hidden">
         <motion.div
-          key={isLogin ? 'divider-login' : 'divider-register'}
-          className="hidden lg:block absolute top-0 bottom-0 z-10"
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}
-          style={{ left: 'calc(45% - 40px)', width: '80px', background: isLogin ? 'linear-gradient(135deg, #0f172a 50%, #020817 50%)' : 'linear-gradient(135deg, #020817 50%, #0f172a 50%)' }}
-        />
-      </AnimatePresence>
+          className="w-[45%] relative"
+          layout
+          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+        >
+          <AnimatePresence mode="wait">
+            {isLogin ? (
+              <motion.div key="deco-left" className="absolute inset-0" initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
+                <DecorativePanel align="left" />
+              </motion.div>
+            ) : (
+              <motion.div key="form-left" className="absolute inset-0 bg-slate-950 flex items-center justify-center p-8" initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
+                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, rgba(6,182,212,0.8) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+                <div className="relative z-10 w-full max-w-sm"><RegisterForm onSwitch={() => setMode('login')} /></div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
-      <div className="flex-1 relative">
         <AnimatePresence mode="wait">
-          {isLogin ? (
-            <motion.div key="form-right" className="absolute inset-0 bg-slate-950 flex items-center justify-center p-8" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 40 }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
-              <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, rgba(6,182,212,0.8) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-              <div className="relative z-10 w-full max-w-sm"><LoginForm onSwitch={() => setMode('register')} /></div>
-            </motion.div>
-          ) : (
-            <motion.div key="deco-right" className="absolute inset-0" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 40 }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
-              <DecorativePanel align="right" />
-            </motion.div>
-          )}
+          <motion.div
+            key={isLogin ? 'divider-login' : 'divider-register'}
+            className="absolute top-0 bottom-0 z-10"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}
+            style={{ left: 'calc(45% - 40px)', width: '80px', background: isLogin ? 'linear-gradient(135deg, #0f172a 50%, #020817 50%)' : 'linear-gradient(135deg, #020817 50%, #0f172a 50%)' }}
+          />
         </AnimatePresence>
+
+        <div className="flex-1 relative">
+          <AnimatePresence mode="wait">
+            {isLogin ? (
+              <motion.div key="form-right" className="absolute inset-0 bg-slate-950 flex items-center justify-center p-8" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 40 }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
+                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, rgba(6,182,212,0.8) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+                <div className="relative z-10 w-full max-w-sm"><LoginForm onSwitch={() => setMode('register')} /></div>
+              </motion.div>
+            ) : (
+              <motion.div key="deco-right" className="absolute inset-0" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 40 }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
+                <DecorativePanel align="right" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
-      <div className="lg:hidden w-full flex items-center justify-center p-8 bg-slate-950 min-h-screen">
+      {/* ── Mobile (< lg) ── */}
+      <div className="lg:hidden min-h-screen bg-slate-950 flex items-center justify-center p-8">
         <div className="w-full max-w-sm">
           <div className="flex items-center gap-3 mb-10">
             <div className="w-9 h-9 bg-cyan-500 rounded-xl flex items-center justify-center">
@@ -419,6 +423,6 @@ export default function AuthPage() {
           </AnimatePresence>
         </div>
       </div>
-    </div>
+    </>
   )
 }
