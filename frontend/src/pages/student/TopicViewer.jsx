@@ -138,7 +138,7 @@ function TabBar({ active, onChange, recommendedFormat, lectureSubView, onLecture
             <Icon size={15} className="relative z-10" />
             <span className="relative z-10">{label}</span>
             {isRecommended(key) && active !== key && (
-              <span className="relative z-10 ml-1 text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 px-1.5 py-0.5 rounded-full">â˜…</span>
+              <span className="relative z-10 ml-1 text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 px-1.5 py-0.5 rounded-full">★</span>
             )}
           </button>
         )
@@ -864,7 +864,7 @@ function LectureContent({ topicId, isTeacher, onGenerate, generating }) {
             onClick={() => copySlide(currentSlide)}
             className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 text-sm py-2 px-4 border border-slate-700 rounded-xl transition-colors"
           >
-            ðŸ“‹ Copy Slide to Notes
+            📋 Copy Slide to Notes
           </button>
         </div>
       )}
@@ -1186,7 +1186,7 @@ export default function TopicViewer() {
             onLectureSubView={setLectureSubView}
           />
           {recommendedFormat && recommendedFormat !== 'english' && !isTeacher && (
-            <p className="text-amber-400/70 text-xs mt-2 ml-1">â˜… Recommended based on your learning style</p>
+            <p className="text-amber-400/70 text-xs mt-2 ml-1">★ Recommended based on your learning style</p>
           )}
         </motion.div>
 
