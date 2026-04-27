@@ -259,8 +259,8 @@ def rag_status():
 
     try:
         base_dir = os.path.dirname(os.path.abspath(__file__)).replace('routes', '')
-        metadata_path = os.path.join(base_dir, 'data', 'metadata.json')
-        faiss_path = os.path.join(base_dir, 'data', 'faiss_index.bin')
+        metadata_path = os.path.join(base_dir, 'backend', 'data', 'metadata.json')
+        faiss_path = os.path.join(base_dir, 'backend', 'data', 'faiss_index.bin')
 
         chunk_count = None
         last_rebuilt = None
@@ -313,7 +313,7 @@ def rebuild_rag():
         )
 
         if result.returncode == 0:
-            metadata_path = os.path.join(base_dir, 'data', 'metadata.json')
+            metadata_path = os.path.join(base_dir, 'backend', 'data', 'metadata.json')
             chunk_count = None
             if os.path.exists(metadata_path):
                 with open(metadata_path, 'r', encoding='utf-8') as f:
