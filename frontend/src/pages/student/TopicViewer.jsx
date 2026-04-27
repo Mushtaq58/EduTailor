@@ -48,9 +48,9 @@ const fmt = (s) => {
   return `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`
 }
 
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // TAB BAR
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function TabBar({ active, onChange, recommendedFormat, lectureSubView, onLectureSubView }) {
   const [lectureOpen, setLectureOpen] = useState(false)
   const lectureRef = useRef(null)
@@ -138,7 +138,7 @@ function TabBar({ active, onChange, recommendedFormat, lectureSubView, onLecture
             <Icon size={15} className="relative z-10" />
             <span className="relative z-10">{label}</span>
             {isRecommended(key) && active !== key && (
-              <span className="relative z-10 ml-1 text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 px-1.5 py-0.5 rounded-full">★</span>
+              <span className="relative z-10 ml-1 text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 px-1.5 py-0.5 rounded-full">â˜…</span>
             )}
           </button>
         )
@@ -147,9 +147,9 @@ function TabBar({ active, onChange, recommendedFormat, lectureSubView, onLecture
   )
 }
 
-// ─────────────────────────────────────────────
-// ENGLISH CONTENT — with highlighting
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ENGLISH CONTENT â€” with highlighting
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function EnglishContent({ paragraphs, topicId, isTeacher }) {
   const {
     popup, setPopup, popupRef,
@@ -170,7 +170,7 @@ function EnglishContent({ paragraphs, topicId, isTeacher }) {
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }} className="space-y-5">
         {!isTeacher && paragraphs.length > 0 && (
           <p className="text-slate-500 text-xs flex items-center gap-1.5 mb-1">
-            <span>💡</span> Select any text to highlight it
+            <span>ðŸ’¡</span> Select any text to highlight it
           </p>
         )}
         {paragraphs.length === 0 ? (
@@ -196,9 +196,9 @@ function EnglishContent({ paragraphs, topicId, isTeacher }) {
   )
 }
 
-// ─────────────────────────────────────────────
-// URDU CONTENT — with highlighting
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// URDU CONTENT â€” with highlighting
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function UrduContent({ paragraphs, loading, onGenerate, isTeacher, topicId }) {
   const {
     popup, setPopup, popupRef,
@@ -247,7 +247,7 @@ function UrduContent({ paragraphs, loading, onGenerate, isTeacher, topicId }) {
         className="space-y-5" dir="rtl">
         {!isTeacher && (
           <p className="text-slate-500 text-xs flex items-center gap-1.5 mb-1" dir="ltr">
-            <span>💡</span> Select any text to highlight it
+            <span>ðŸ’¡</span> Select any text to highlight it
           </p>
         )}
         {paragraphs.map((para, i) => (
@@ -269,9 +269,9 @@ function UrduContent({ paragraphs, loading, onGenerate, isTeacher, topicId }) {
   )
 }
 
-// ─────────────────────────────────────────────
-// AUDIO CONTENT — with bookmarks
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// AUDIO CONTENT â€” with bookmarks
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function AudioContent({ audioUrl, loading, onGenerate, isTeacher, topicId, audioRef: extRef }) {
   const intRef = useRef(null)
   const audioRef = extRef || intRef
@@ -391,7 +391,7 @@ function AudioContent({ audioUrl, loading, onGenerate, isTeacher, topicId, audio
                 background: '#f97316', border: '2px solid #1e293b',
                 transform: 'translateX(-50%)', cursor: 'pointer', zIndex: 10,
               }}
-              title={`${bk.label || 'Bookmark'} — ${fmt(bk.timestamp_sec)}`}
+              title={`${bk.label || 'Bookmark'} â€” ${fmt(bk.timestamp_sec)}`}
               onClick={() => { if (audioRef.current) audioRef.current.currentTime = bk.timestamp_sec }}
             />
           ))}
@@ -436,7 +436,7 @@ function AudioContent({ audioUrl, loading, onGenerate, isTeacher, topicId, audio
                   {saving ? '...' : 'Save'}
                 </button>
                 <button onClick={() => setShowInput(false)}
-                  className="text-slate-500 px-3 border border-slate-700 rounded-lg text-sm">✕</button>
+                  className="text-slate-500 px-3 border border-slate-700 rounded-lg text-sm">âœ•</button>
               </div>
             )}
           </div>
@@ -461,9 +461,9 @@ function AudioContent({ audioUrl, loading, onGenerate, isTeacher, topicId, audio
                   <button
                     onClick={() => { if (audioRef.current) { audioRef.current.currentTime = bk.timestamp_sec; audioRef.current.play(); setPlaying(true) } }}
                     className="text-cyan-400 hover:text-cyan-300 text-xs px-2 py-1 rounded border border-cyan-400/30 transition-colors">
-                    ▶ Jump
+                    â–¶ Jump
                   </button>
-                  <button onClick={() => deleteBookmark(bk.id)} className="text-slate-500 hover:text-red-400 text-xs transition-colors">🗑</button>
+                  <button onClick={() => deleteBookmark(bk.id)} className="text-slate-500 hover:text-red-400 text-xs transition-colors">ðŸ—‘</button>
                 </div>
               </div>
             ))}
@@ -474,9 +474,9 @@ function AudioContent({ audioUrl, loading, onGenerate, isTeacher, topicId, audio
   )
 }
 
-// ─────────────────────────────────────────────
-// VISUAL CONTENT — with video bookmarks
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// VISUAL CONTENT â€” with video bookmarks
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function VisualContent({ visualUrl, visualType, visualNarration, loading, onGenerate, isTeacher, topicId, videoRef: extRef }) {
   const intRef = useRef(null)
   const videoRef = extRef || intRef
@@ -594,7 +594,7 @@ function VisualContent({ visualUrl, visualType, visualNarration, loading, onGene
                     {saving ? '...' : 'Save'}
                   </button>
                   <button onClick={() => setShowInput(false)}
-                    className="text-slate-500 px-3 border border-slate-700 rounded-lg text-sm">✕</button>
+                    className="text-slate-500 px-3 border border-slate-700 rounded-lg text-sm">âœ•</button>
                 </div>
               )}
             </div>
@@ -632,8 +632,8 @@ function VisualContent({ visualUrl, visualType, visualNarration, loading, onGene
                   </div>
                   <div className="flex gap-2">
                     <button onClick={() => { if (videoRef.current) { videoRef.current.currentTime = bk.timestamp_sec; videoRef.current.play() } }}
-                      className="text-cyan-400 hover:text-cyan-300 text-xs px-2 py-1 rounded border border-cyan-400/30">▶ Jump</button>
-                    <button onClick={() => deleteBookmark(bk.id)} className="text-slate-500 hover:text-red-400 text-xs">🗑</button>
+                      className="text-cyan-400 hover:text-cyan-300 text-xs px-2 py-1 rounded border border-cyan-400/30">â–¶ Jump</button>
+                    <button onClick={() => deleteBookmark(bk.id)} className="text-slate-500 hover:text-red-400 text-xs">ðŸ—‘</button>
                   </div>
                 </div>
               ))}
@@ -645,9 +645,9 @@ function VisualContent({ visualUrl, visualType, visualNarration, loading, onGene
   )
 }
 
-// ─────────────────────────────────────────────
-// LECTURE SLIDE CARD — unchanged
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// LECTURE SLIDE CARD â€” unchanged
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function SlideCard({ slide, theme, direction }) {
   const slideVariants = {
     enter: (dir) => ({ x: dir > 0 ? '100%' : '-100%', opacity: 0 }),
@@ -694,9 +694,9 @@ function SlideCard({ slide, theme, direction }) {
   )
 }
 
-// ─────────────────────────────────────────────
-// LECTURE CONTENT — unchanged
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// LECTURE CONTENT â€” unchanged
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function LectureContent({ topicId, isTeacher, onGenerate, generating }) {
   const [slides, setSlides] = useState([])
   const [loading, setLoading] = useState(true)
@@ -714,7 +714,7 @@ function LectureContent({ topicId, isTeacher, onGenerate, generating }) {
         content,
         slide_number: slide.slide_number,
       })
-      setCopyToast('Slide copied to your notes ✓')
+      setCopyToast('Slide copied to your notes âœ“')
       setTimeout(() => setCopyToast(null), 2500)
     } catch {
       setCopyToast('Failed to copy slide')
@@ -844,7 +844,7 @@ function LectureContent({ topicId, isTeacher, onGenerate, generating }) {
                 <span style={{ color: theme.accent }}>Playing Urdu narration...</span>
               </>
             ) : (
-              <span className="text-slate-500">Audio ready — will auto-play on slide change</span>
+              <span className="text-slate-500">Audio ready â€” will auto-play on slide change</span>
             )}
           </div>
         ) : (
@@ -852,7 +852,7 @@ function LectureContent({ topicId, isTeacher, onGenerate, generating }) {
         )}
       </div>
 
-      {/* Copy Slide to Notes — student only */}
+      {/* Copy Slide to Notes â€” student only */}
       {copyToast && (
         <div style={{ position: 'fixed', bottom: 28, left: '50%', transform: 'translateX(-50%)', zIndex: 9999, background: '#10b98122', border: '1px solid #10b981', color: '#6ee7b7', borderRadius: 10, padding: '10px 20px', fontSize: 14, fontWeight: 500, pointerEvents: 'none' }}>
           {copyToast}
@@ -864,7 +864,7 @@ function LectureContent({ topicId, isTeacher, onGenerate, generating }) {
             onClick={() => copySlide(currentSlide)}
             className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 text-sm py-2 px-4 border border-slate-700 rounded-xl transition-colors"
           >
-            📋 Copy Slide to Notes
+            ðŸ“‹ Copy Slide to Notes
           </button>
         </div>
       )}
@@ -882,9 +882,9 @@ function LectureContent({ topicId, isTeacher, onGenerate, generating }) {
   )
 }
 
-// ─────────────────────────────────────────────
-// MINDMAP CONTENT — unchanged
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// MINDMAP CONTENT â€” unchanged
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function MindmapContent({ topicId, isTeacher, onGenerate, generating }) {
   const containerRef = useRef(null)
   const [loading, setLoading] = useState(true)
@@ -983,7 +983,7 @@ function MindmapContent({ topicId, isTeacher, onGenerate, generating }) {
             <Network size={14} className="text-cyan-400" />
             <span className="text-white text-xs font-semibold">Interactive Mindmap</span>
           </div>
-          <span className="text-slate-500 text-xs">Scroll to zoom · Drag to pan · Click to collapse</span>
+          <span className="text-slate-500 text-xs">Scroll to zoom Â· Drag to pan Â· Click to collapse</span>
         </div>
         <div ref={containerRef} style={{ height: '500px', width: '100%', overflow: 'hidden' }} />
       </div>
@@ -991,9 +991,9 @@ function MindmapContent({ topicId, isTeacher, onGenerate, generating }) {
   )
 }
 
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // MAIN COMPONENT
-// ─────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function TopicViewer() {
   const { topicId } = useParams()
   const navigate = useNavigate()
@@ -1186,7 +1186,7 @@ export default function TopicViewer() {
             onLectureSubView={setLectureSubView}
           />
           {recommendedFormat && recommendedFormat !== 'english' && !isTeacher && (
-            <p className="text-amber-400/70 text-xs mt-2 ml-1">★ Recommended based on your learning style</p>
+            <p className="text-amber-400/70 text-xs mt-2 ml-1">â˜… Recommended based on your learning style</p>
           )}
         </motion.div>
 

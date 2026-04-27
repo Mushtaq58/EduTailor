@@ -37,11 +37,11 @@ export default function AdminDashboard() {
   }
 
   const statCards = stats ? [
-    { label: 'Total Students', value: stats.total_students, icon: '🎓', color: '#06b6d4' },
-    { label: 'Total Teachers', value: stats.total_teachers, icon: '👨‍🏫', color: '#8b5cf6' },
-    { label: 'Topics', value: stats.total_topics, icon: '📚', color: '#10b981' },
-    { label: 'Quiz Attempts', value: stats.total_quiz_attempts, icon: '📝', color: '#f59e0b' },
-    { label: 'Active Today', value: stats.active_today, icon: '⚡', color: '#ef4444' },
+    { label: 'Total Students', value: stats.total_students, icon: 'ðŸŽ“', color: '#06b6d4' },
+    { label: 'Total Teachers', value: stats.total_teachers, icon: 'ðŸ‘¨â€ðŸ«', color: '#8b5cf6' },
+    { label: 'Topics', value: stats.total_topics, icon: 'ðŸ“š', color: '#10b981' },
+    { label: 'Quiz Attempts', value: stats.total_quiz_attempts, icon: 'ðŸ“', color: '#f59e0b' },
+    { label: 'Active Today', value: stats.active_today, icon: 'âš¡', color: '#ef4444' },
   ] : []
 
   return (
@@ -50,7 +50,7 @@ export default function AdminDashboard() {
       <div style={styles.header}>
         <div style={styles.headerLeft}>
           <div style={styles.logo}>
-            <span style={{ fontSize: 22 }}>🎓</span>
+            <span style={{ fontSize: 22 }}>ðŸŽ“</span>
           </div>
           <div>
             <div style={styles.logoText}>EduTailor</div>
@@ -71,7 +71,7 @@ export default function AdminDashboard() {
             <h1 style={styles.welcomeTitle}>Dashboard</h1>
             <p style={styles.welcomeSub}>Platform overview and quick actions</p>
           </div>
-          <div style={styles.refreshBtn} onClick={fetchStats}>↻ Refresh</div>
+          <div style={styles.refreshBtn} onClick={fetchStats}>â†» Refresh</div>
         </div>
 
         {/* Error */}
@@ -93,7 +93,7 @@ export default function AdminDashboard() {
                 <div style={{ ...styles.statIcon, background: card.color + '22', color: card.color }}>
                   {card.icon}
                 </div>
-                <div style={{ ...styles.statValue, color: card.color }}>{card.value ?? '—'}</div>
+                <div style={{ ...styles.statValue, color: card.color }}>{card.value ?? 'â€”'}</div>
                 <div style={styles.statLabel}>{card.label}</div>
               </div>
             ))}
@@ -105,16 +105,16 @@ export default function AdminDashboard() {
           <h2 style={styles.sectionTitle}>Quick Actions</h2>
           <div style={styles.actionsGrid}>
             <div style={styles.actionCard} onClick={() => navigate('/admin/users')}>
-              <div style={styles.actionIcon}>👥</div>
+              <div style={styles.actionIcon}>ðŸ‘¥</div>
               <div style={styles.actionTitle}>Manage Users</div>
               <div style={styles.actionDesc}>Create teacher accounts, activate or deactivate users</div>
-              <div style={styles.actionArrow}>→</div>
+              <div style={styles.actionArrow}>â†’</div>
             </div>
             <div style={styles.actionCard} onClick={() => navigate('/admin/corpus')}>
-              <div style={styles.actionIcon}>🧠</div>
+              <div style={styles.actionIcon}>ðŸ§ </div>
               <div style={styles.actionTitle}>Corpus Management</div>
               <div style={styles.actionDesc}>View RAG index status and trigger rebuild</div>
-              <div style={styles.actionArrow}>→</div>
+              <div style={styles.actionArrow}>â†’</div>
             </div>
           </div>
         </div>
