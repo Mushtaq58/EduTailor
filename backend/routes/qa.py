@@ -13,7 +13,7 @@ qa_bp = Blueprint('qa', __name__)
 
 groq_client = Groq(api_key=os.getenv('GROQ_API_KEY'))
 
-BASE_DIR = Path(__file__).parent.parent
+BASE_DIR = Path(__file__).parent.parent / 'backend'
 DATA_DIR = BASE_DIR / 'data'
 
 try:
