@@ -10,7 +10,7 @@ import { useAuth } from '../../context/AuthContext'
 import api from '../../api/axios'
 import TopicQA from '../../components/TopicQA'
 
-const BACKEND_URL = ''
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'
 
 function calcXP(completed, inProgress) {
   return completed * 100 + inProgress * 25

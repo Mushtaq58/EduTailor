@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Eye, EyeOff, Mail, Lock, User, GraduationCap } from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock, User, GraduationCap, ArrowLeft } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import api from '../../api/axios'
 
@@ -31,7 +31,31 @@ function InputField({ icon: Icon, type, placeholder, value, onChange, showToggle
   )
 }
 
-function LoginForm({ onSwitch }) {
+const ROLE_CONFIG = {
+  student: {
+    label: 'Student',
+    accent: 'text-cyan-400',
+    accentBg: 'bg-cyan-500',
+    icon: '🎓',
+    allowRegister: true,
+  },
+  teacher: {
+    label: 'Teacher',
+    accent: 'text-violet-400',
+    accentBg: 'bg-violet-500',
+    icon: '👨‍🏫',
+    allowRegister: false,
+  },
+  admin: {
+    label: 'Admin',
+    accent: 'text-amber-400',
+    accentBg: 'bg-amber-500',
+    icon: '🛡️',
+    allowRegister: false,
+  },
+}
+
+function LoginForm({ onSwitch, role }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -39,6 +63,7 @@ function LoginForm({ onSwitch }) {
   const [error, setError] = useState('')
   const { login } = useAuth()
   const navigate = useNavigate()
+  const config = ROLE_CONFIG[role] || ROLE_CONFIG.student
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -46,17 +71,26 @@ function LoginForm({ onSwitch }) {
     setLoading(true)
     try {
       const res = await api.post('/auth/login', { email, password })
+      const userRole = res.data.user.role
+
+      // Role mismatch check
+      if (userRole !== role) {
+        const portalName = ROLE_CONFIG[userRole]?.label || userRole
+        setError(`This account belongs to the ${portalName} portal. Please use the correct login page.`)
+        setLoading(false)
+        return
+      }
+
       login(res.data.user, res.data.access_token)
-      if (res.data.user.role === 'admin') {
+      if (userRole === 'admin') {
         navigate('/admin/dashboard')
-      } else if (res.data.user.role === 'teacher') {
+      } else if (userRole === 'teacher') {
         navigate('/teacher/dashboard')
       } else {
         navigate('/student/subjects')
       }
     } catch (err) {
       if (err.response?.status === 403 && err.response?.data?.unverified) {
-        // Redirect to verify email page
         navigate('/auth/verify-email', {
           state: {
             user_id: err.response.data.user_id,
@@ -79,8 +113,12 @@ function LoginForm({ onSwitch }) {
       className="w-full max-w-sm mx-auto"
     >
       <div className="mb-8">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-2xl">{config.icon}</span>
+          <span className={`text-sm font-semibold ${config.accent}`}>{config.label} Portal</span>
+        </div>
         <h2 className="text-2xl font-bold text-white tracking-tight">Welcome back</h2>
-        <p className="text-slate-400 text-sm mt-1">Sign in to continue learning</p>
+        <p className="text-slate-400 text-sm mt-1">Sign in to continue</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -140,12 +178,14 @@ function LoginForm({ onSwitch }) {
         </button>
       </form>
 
-      <p className="text-slate-500 text-sm mt-6 text-center">
-        New to EduTailor?{' '}
-        <button onClick={onSwitch} className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
-          Create an account
-        </button>
-      </p>
+      {config.allowRegister && (
+        <p className="text-slate-500 text-sm mt-6 text-center">
+          New to EduTailor?{' '}
+          <button onClick={onSwitch} className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+            Create an account
+          </button>
+        </p>
+      )}
     </motion.div>
   )
 }
@@ -175,10 +215,7 @@ function RegisterForm({ onSwitch }) {
     try {
       const res = await api.post('/auth/register', form)
       navigate('/auth/verify-email', {
-        state: {
-          user_id: res.data.user_id,
-          email: res.data.email
-        }
+        state: { user_id: res.data.user_id, email: res.data.email }
       })
     } catch (err) {
       setError(err.response?.data?.error || 'Registration failed. Please try again.')
@@ -195,43 +232,25 @@ function RegisterForm({ onSwitch }) {
       className="w-full max-w-sm mx-auto"
     >
       <div className="mb-8">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-2xl">🎓</span>
+          <span className="text-sm font-semibold text-cyan-400">Student Portal</span>
+        </div>
         <h2 className="text-2xl font-bold text-white tracking-tight">Create account</h2>
         <p className="text-slate-400 text-sm mt-1">Start your personalized learning journey</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <InputField
-          icon={User}
-          type="text"
-          placeholder="Full name"
-          value={form.full_name}
-          onChange={set('full_name')}
-        />
-        <InputField
-          icon={Mail}
-          type="email"
-          placeholder="Email address"
-          value={form.email}
-          onChange={set('email')}
-        />
-
+        <InputField icon={User} type="text" placeholder="Full name" value={form.full_name} onChange={set('full_name')} />
+        <InputField icon={Mail} type="email" placeholder="Email address" value={form.email} onChange={set('email')} />
         <div>
           <InputField
-            icon={Lock}
-            type="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={set('password')}
-            showToggle
-            show={showPassword}
-            onToggle={() => setShowPassword(!showPassword)}
+            icon={Lock} type="password" placeholder="Password"
+            value={form.password} onChange={set('password')}
+            showToggle show={showPassword} onToggle={() => setShowPassword(!showPassword)}
           />
           {form.password.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-2.5 grid grid-cols-2 gap-1"
-            >
+            <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mt-2.5 grid grid-cols-2 gap-1">
               {passwordRules.map(({ test, label }) => (
                 <div key={label} className="flex items-center gap-1.5">
                   <motion.div
@@ -239,9 +258,7 @@ function RegisterForm({ onSwitch }) {
                     transition={{ duration: 0.2 }}
                     className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors duration-200 ${test ? 'bg-emerald-400' : 'bg-slate-600'}`}
                   />
-                  <span className={`text-xs transition-colors duration-200 ${test ? 'text-emerald-400' : 'text-slate-500'}`}>
-                    {label}
-                  </span>
+                  <span className={`text-xs transition-colors duration-200 ${test ? 'text-emerald-400' : 'text-slate-500'}`}>{label}</span>
                 </div>
               ))}
             </motion.div>
@@ -250,12 +267,8 @@ function RegisterForm({ onSwitch }) {
 
         <AnimatePresence>
           {error && (
-            <motion.p
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="text-red-400 text-xs bg-red-400/10 border border-red-400/20 rounded-lg px-4 py-2.5"
-            >
+            <motion.p initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+              className="text-red-400 text-xs bg-red-400/10 border border-red-400/20 rounded-lg px-4 py-2.5">
               {error}
             </motion.p>
           )}
@@ -277,36 +290,26 @@ function RegisterForm({ onSwitch }) {
 
       <p className="text-slate-500 text-sm mt-6 text-center">
         Already have an account?{' '}
-        <button onClick={onSwitch} className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
-          Sign in
-        </button>
+        <button onClick={onSwitch} className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">Sign in</button>
       </p>
     </motion.div>
   )
 }
 
-function DecorativePanel({ align = 'left' }) {
+function DecorativePanel({ align = 'left', role = 'student' }) {
   const isRight = align === 'right'
+  const config = ROLE_CONFIG[role] || ROLE_CONFIG.student
   return (
     <div
       className="w-full h-full flex flex-col justify-between p-12 relative overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #0f172a 0%, #0c1a2e 50%, #061020 100%)' }}
     >
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(6,182,212,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.4) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-        }}
-      />
+      <div className="absolute inset-0 opacity-10" style={{
+        backgroundImage: 'linear-gradient(rgba(6,182,212,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.4) 1px, transparent 1px)',
+        backgroundSize: '48px 48px',
+      }} />
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl" />
       <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl" />
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          background: 'linear-gradient(135deg, transparent 40%, rgba(6,182,212,0.15) 40%, rgba(6,182,212,0.15) 60%, transparent 60%)',
-        }}
-      />
 
       <div className={`relative z-10 flex ${isRight ? 'justify-end' : 'justify-start'}`}>
         <div className="flex items-center gap-3">
@@ -318,9 +321,10 @@ function DecorativePanel({ align = 'left' }) {
       </div>
 
       <div className={`relative z-10 ${isRight ? 'text-right' : 'text-left'}`}>
+        <div className="text-5xl mb-4">{config.icon}</div>
         <h1 className="text-4xl font-bold text-white leading-tight tracking-tight">
-          Learn Science<br />
-          <span className="text-cyan-400">Your Way</span>
+          {config.label}<br />
+          <span className="text-cyan-400">Portal</span>
         </h1>
         <p className={`text-slate-400 mt-4 leading-relaxed text-sm ${isRight ? 'ml-auto' : ''} max-w-xs`}>
           Adaptive content delivery in English, Urdu, audio, and visual formats — tailored to how you learn best.
@@ -350,25 +354,37 @@ function DecorativePanel({ align = 'left' }) {
 }
 
 export default function AuthPage() {
+  const { role = 'student' } = useParams()
+  const navigate = useNavigate()
   const [mode, setMode] = useState('login')
   const isLogin = mode === 'login'
+  const config = ROLE_CONFIG[role] || ROLE_CONFIG.student
 
   return (
     <>
+      {/* Back to landing */}
+      <button
+        onClick={() => navigate('/')}
+        className="fixed top-4 left-4 z-50 flex items-center gap-1.5 text-slate-500 hover:text-white text-xs transition-colors bg-slate-900/80 border border-slate-800 px-3 py-2 rounded-lg backdrop-blur-sm"
+      >
+        <ArrowLeft size={13} />
+        Back
+      </button>
+
       {/* ── Desktop (lg+) ── */}
       <div className="hidden lg:flex min-h-screen bg-slate-950 overflow-hidden">
-        <motion.div
-          className="w-[45%] relative"
-          layout
-          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-        >
+        <motion.div className="w-[45%] relative" layout transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}>
           <AnimatePresence mode="wait">
             {isLogin ? (
-              <motion.div key="deco-left" className="absolute inset-0" initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
-                <DecorativePanel align="left" />
+              <motion.div key="deco-left" className="absolute inset-0"
+                initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
+                <DecorativePanel align="left" role={role} />
               </motion.div>
             ) : (
-              <motion.div key="form-left" className="absolute inset-0 bg-slate-950 flex items-center justify-center p-8" initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
+              <motion.div key="form-left" className="absolute inset-0 bg-slate-950 flex items-center justify-center p-8"
+                initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
                 <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, rgba(6,182,212,0.8) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
                 <div className="relative z-10 w-full max-w-sm"><RegisterForm onSwitch={() => setMode('login')} /></div>
               </motion.div>
@@ -388,13 +404,19 @@ export default function AuthPage() {
         <div className="flex-1 relative">
           <AnimatePresence mode="wait">
             {isLogin ? (
-              <motion.div key="form-right" className="absolute inset-0 bg-slate-950 flex items-center justify-center p-8" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 40 }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
+              <motion.div key="form-right" className="absolute inset-0 bg-slate-950 flex items-center justify-center p-8"
+                initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 40 }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
                 <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, rgba(6,182,212,0.8) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-                <div className="relative z-10 w-full max-w-sm"><LoginForm onSwitch={() => setMode('register')} /></div>
+                <div className="relative z-10 w-full max-w-sm">
+                  <LoginForm onSwitch={() => setMode('register')} role={role} />
+                </div>
               </motion.div>
             ) : (
-              <motion.div key="deco-right" className="absolute inset-0" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 40 }} transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
-                <DecorativePanel align="right" />
+              <motion.div key="deco-right" className="absolute inset-0"
+                initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 40 }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}>
+                <DecorativePanel align="right" role={role} />
               </motion.div>
             )}
           </AnimatePresence>
@@ -413,7 +435,7 @@ export default function AuthPage() {
           <AnimatePresence mode="wait">
             {isLogin ? (
               <motion.div key="mobile-login" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.25 }}>
-                <LoginForm onSwitch={() => setMode('register')} />
+                <LoginForm onSwitch={() => setMode('register')} role={role} />
               </motion.div>
             ) : (
               <motion.div key="mobile-register" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.25 }}>

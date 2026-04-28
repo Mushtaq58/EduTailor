@@ -15,7 +15,7 @@ import { Markmap, loadCSS, loadJS } from 'markmap-view'
 import { useHighlights, HighlightPopup, HighlightToast } from '../../hooks/useHighlights'
 import NotesPanel from '../../components/NotesPanel'
 
-const BACKEND_URL = ''
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'
 
 const SLIDE_THEMES = [
   { bg: 'from-purple-900 to-indigo-900', accent: '#818cf8', accentClass: 'bg-indigo-400' },

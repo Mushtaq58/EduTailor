@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { LogOut, MessageCircle, FlaskConical, Zap, Leaf, Lock, ChevronRight, BarChart2, UserCircle } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 
-const BACKEND_URL = ''
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'
 
 const SUBJECTS = [
   {

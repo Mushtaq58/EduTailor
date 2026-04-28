@@ -5,7 +5,7 @@ import { ArrowLeft, User, Camera, Save, Lock, Eye, EyeOff, CheckCircle } from 'l
 import { useAuth } from '../../context/AuthContext'
 import api from '../../api/axios'
 
-const BACKEND_URL = ''
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'
 
 export default function ProfilePage() {
   const { user, login, token } = useAuth()

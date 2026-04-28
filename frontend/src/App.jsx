@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
+import LandingPage from './pages/auth/LandingPage'
 import AuthPage from './pages/auth/AuthPage'
 import VerifyEmailPage from './pages/auth/VerifyEmailPage'
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
@@ -23,11 +24,10 @@ import AdminDashboard from './pages/admin/AdminDashboard'
 import UserManagement from './pages/admin/UserManagement'
 import CorpusManagement from './pages/admin/CorpusManagement'
 
-// Admin-only protected route
 function AdminRoute({ children }) {
   const { user } = useAuth()
-  if (!user) return <Navigate to="/auth" replace />
-  if (user.role !== 'admin') return <Navigate to="/auth" replace />
+  if (!user) return <Navigate to="/" replace />
+  if (user.role !== 'admin') return <Navigate to="/" replace />
   return children
 }
 
@@ -36,8 +36,18 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          {/* Auth Routes */}
-          <Route path="/auth" element={<AuthPage />} />
+          {/* Landing Page */}
+          <Route path="/" element={<LandingPage />} />
+
+          {/* Auth Routes — role-based */}
+          <Route path="/auth/:role" element={<AuthPage />} />
+          
+          
+          
+
+          {/* Legacy /auth route — redirect to landing */}
+          <Route path="/auth" element={<Navigate to="/" replace />} />
+
           <Route path="/auth/verify-email" element={<VerifyEmailPage />} />
           <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
@@ -102,7 +112,7 @@ export default function App() {
             <AdminRoute><CorpusManagement /></AdminRoute>
           } />
 
-          <Route path="*" element={<Navigate to="/auth" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
